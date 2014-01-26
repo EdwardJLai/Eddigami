@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h3>Flickr Authentication</h3>
+</div>
+
+Please allow pop-ups or click
+<%= link_to 'this link', @auth_url %>
+<%= form_tag do %>
+	<div class="form-actions">
+		<%= text_field_tag :code, nil, :placeholder => "###-###-###" %>
+		<%= submit_tag "Authenticate", :class => "btn btn-primary" %>
+	</div>
+<% end %>
+
+
+
+<script>
+	window.open('<%= @auth_url %>','_blank','height=150');
+</script>
+
+
+

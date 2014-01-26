@@ -1,0 +1,62 @@
+<%- model_class = Photo -%>
+<%= flash[:access] %>
+
+<div class="page-header">
+  <h2><%= session[:edited] == "true"? 'Home' : 'Editing Queue' %></h2>
+  <h3><%= "Incident: " + session[:incident] %></h3>
+</div>
+
+<table class="table table-striped" id="photo_table">
+  <tbody>
+    <% @photo_pack.each do |photo_pack| %>
+      <tr> 
+      <% photo_pack.each do |photo| %>
+        <td align="center" valign="center" style="text-align: center;">
+          <div class="dropdown">
+						<button class="btn dropdown-toggle sr-only" type="button" id="dropdownMenu1" data-toggle="dropdown">
+							<%= image_tag(photo.image_url(:thumb))%>
+						</button>
+						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation"><%= link_to 'Show', photo %></li>
+			      <% if current_user.role != "viewer" %>
+								<li role="presentation"><%= link_to 'Edit', edit_photo_path(photo) %></li>
+								<li role="presentation"><%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+					  <% end %>
+						</ul>
+					</div>
+        </td>
+      <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  <% if @photo_pack == [[]] %>
+    This page is intentionally blank.
+  <% end %>
+</table>
+<% if @map_points && @map_points.length>0 %> <!-- dont load map script for pages that don't have maps -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZDPNNBRPCecNa5YSDdLRp0VokNsxiwKk&sensor=false&callback=initialize"></script>
+  <script src="/assets/maps.js?body=1"></script>
+  <div class="row">
+		<div class="btn" id="map_show" style="margin-right: auto; margin-left: 44%;">Map of locations</div>
+    <br>
+    <br>
+		<div class="map-canvas" id="map-canvas"></div>
+	</div>
+  <script>
+    $("#map-canvas").toggle(); // hiding by default
+    function initialize() {
+      make_map([
+        <% @map_points.each do |p| %>
+          ["<%= p.lat.to_s %>", "<%= p.lng.to_s %>", "<%= p.caption %>", "<%= p.id %>"],
+        <% end %>
+      ]);
+      $("#map_show").click(function() {
+        var bounds = map.getBounds();
+        $("#map-canvas").slideToggle("fast");
+        google.maps.event.trigger(map, 'resize');
+        map.fitBounds(bounds); 
+        map.setZoom(zoom);
+      });
+    }
+  </script>
+<% end %>
