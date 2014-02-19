@@ -1,6 +1,0 @@
-<%= render layout: 'photos' %>
-<div class="page-header">
-  <h3>New Instruction</h3>
-</div>
-
-<%= render :partial => 'instruction_form' %>

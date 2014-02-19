@@ -1,5 +1,0 @@
-$(document).ready(function () {
-	$("#map_show").click(function() {
-		$("#map-canvas").toggle();
-	});
-});
