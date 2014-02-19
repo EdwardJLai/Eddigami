@@ -1,0 +1,67 @@
+<%= form_for :instructions, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :description, :class => 'text_field'%>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :who, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :who, :class => 'text_field'%>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :date, :class => 'text_field' %>
+    </div>
+  </div>
+  <div id="form_button">
+    <input class="current_button" type="button" value="Now?" id="timebutton">
+  </div>
+  <%= f.submit nil, :class => 'btn btn-primary', :id => 'form-submit' %>
+ <% end %>
+ <script>
+   $(document).ready(function(){
+    resizeDiv();
+
+	 	$("#timebutton").click(function(e) {
+		    var d = new Date();
+		    var curr_date = d.getDate();
+		    var curr_month = d.getMonth() + 1; //Months are zero based
+		    var curr_year = d.getFullYear();
+		    var curr_hour = d.getHours();
+		    var curr_min = d.getMinutes();
+		    var a_p = "";
+
+		    if (curr_hour < 12)
+		       {
+		       a_p = "AM";
+		       }
+		    else
+		       {
+		       a_p = "PM";
+		       }
+		    if (curr_hour == 0)
+		       {
+		       curr_hour = 12;
+		       }
+		    if (curr_hour > 12)
+		       {
+		       curr_hour = curr_hour - 12;
+		       }
+
+		    var curr_min = d.getMinutes();
+		    var time = curr_month + "/" + curr_date + "/" + curr_year + " " + curr_hour + ":" + curr_min + " " + a_p;
+		    $("#photo_time_taken").val(time);
+		    $("#photos_time_taken").val(time);
+		  });
+		});
+ </script>
