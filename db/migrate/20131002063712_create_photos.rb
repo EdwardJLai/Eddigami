@@ -2,16 +2,18 @@ class CreatePhotos < ActiveRecord::Migration
   def change
     create_table :photos do |t|
       t.string :caption
-      t.string :incidentName
-      t.string :operationalPeriod
-      t.string :teamNumber
-      t.string :contentType
-      t.string :filename
+      t.string :incident_name
+      t.string :operational_period
+      t.string :team_number
+      t.string :taken_by
+      t.string :time_taken
     	t.string :image
     	t.boolean :edited
     	t.decimal :lat
     	t.decimal :lng
-
+    	t.int :rotation
+    	t.references :instructions
+    	
       t.timestamps
     end
   end

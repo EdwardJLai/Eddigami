@@ -4,14 +4,14 @@ class CreatePhotos < ActiveRecord::Migration
       t.string :caption
       t.string :incident_name
       t.string :operational_period
-      t.string :teamNumber
-      t.string :contentType
-      t.string :filename
+      t.string :team_number
+      t.string :taken_by
+      t.string :time_taken
     	t.string :image
     	t.boolean :edited
     	t.decimal :lat
     	t.decimal :lng
-
+    	t.int :rotation
       t.timestamps
     end
   end

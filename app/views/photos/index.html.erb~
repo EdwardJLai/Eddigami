@@ -1,29 +1,19 @@
 <%- model_class = Photo -%>
-<%= flash[:access] %>
 
 <div class="page-header">
   <h2><%= session[:edited] == "true"? 'Home' : 'Editing Queue' %></h2>
   <h3><%= "Incident: " + session[:incident] %></h3>
 </div>
 
-<table class="table table-striped" id="photo_table">
+<table class="table table-striped" id="instruction_table">
   <tbody>
     <% @photo_pack.each do |photo_pack| %>
       <tr> 
       <% photo_pack.each do |photo| %>
         <td align="center" valign="center" style="text-align: center;">
-          <div class="dropdown">
-						<button class="btn dropdown-toggle sr-only" type="button" id="dropdownMenu1" data-toggle="dropdown">
-							<%= image_tag(photo.image_url(:thumb))%>
-						</button>
-						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation"><%= link_to 'Show', photo %></li>
-			      <% if current_user.role != "viewer" %>
-								<li role="presentation"><%= link_to 'Edit', edit_photo_path(photo) %></li>
-								<li role="presentation"><%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-					  <% end %>
-						</ul>
-					</div>
+					<%= link_to image_tag(photo.image_url(:thumb)), photo, :id => "pic" %></br>
+					<%= link_to 'Edit', edit_photo_path(photo) %> | 
+		      <%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       <% end %>
       </tr>
@@ -31,6 +21,24 @@
   </tbody>
   <% if @photo_pack == [[]] %>
     This page is intentionally blank.
+  <% end %>
+</table>
+<table class="table table-striped" id="photo_table">
+  <tbody>
+    <% @photo_pack.each do |photo_pack| %>
+      <tr> 
+      <% photo_pack.each do |photo| %>
+        <td align="center" valign="center" style="text-align: center;">
+					<%= link_to image_tag(photo.image_url(:thumb)), photo, :id => "pic" %></br>
+					<%= link_to 'Edit', edit_photo_path(photo) %> | 
+		      <%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  <% if @photo_pack == [[]] %>
+    No photos to show.
   <% end %>
 </table>
 <% if @map_points && @map_points.length>0 %> <!-- dont load map script for pages that don't have maps -->
@@ -52,7 +60,7 @@
       ]);
       $("#map_show").click(function() {
         var bounds = map.getBounds();
-        $("#map-canvas").slideToggle("slow");
+        $("#map-canvas").slideToggle("fast");
         google.maps.event.trigger(map, 'resize');
         map.fitBounds(bounds); 
         map.setZoom(zoom);

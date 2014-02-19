@@ -5,6 +5,7 @@ class Photo < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   after_save :extract_metadata
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :rotation
+  belongs_to :instructions
 
 
   def extract_metadata

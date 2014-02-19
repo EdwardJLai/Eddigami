@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "PhotoApp" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Much Fold. Wow." %></title>
     <%= csrf_meta_tags %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -46,12 +46,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">PhotoApp</a>
+          <a class="brand" href="/">EddyGami</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
               <li><%= link_to "Upload", new_photo_path  %></li>
               <li><%= link_to "Multiple Upload", photos_multiple_uploads_path  %></li>
               <li><%= link_to "Editing Queue", edit_queue_path  %></li>
+              <li><%= link_to "New Instruction", new_instruction_path  %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -77,27 +78,9 @@
         </div>
       </div><!--/row-->
       <footer>
-        <br>
-        <% if user_signed_in? %>
-          Logged in as <strong><%= current_user.email %></strong>.
-          <br>
-          <%= link_to 'All Users', users_path %> |
-          <%= link_to 'Edit profile', edit_user_path(current_user) %> |
-          <% if current_user.role == "admin" %>
-            <%= link_to "CSV", csv_index_path %> |
-          <% end %>
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, :html => {:onclick => 'FB.Logout();'} %>
-          <br>
-        <% else %>
-          <%= link_to "Sign up", new_user_registration_path %> |
-          <%= link_to "Login", new_user_session_path %>
-        <% end %>
       <!-- <p>&copy; Company 2013</p> -->
       </footer>
     </div> <!-- /container -->
 
-    <div class='container-fluid'>
-			&copy; BAMRU 2013
-		</div>
   </body>
 </html>

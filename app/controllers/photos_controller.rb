@@ -1,9 +1,6 @@
 class PhotosController < ApplicationController
 
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
-  before_action :save_user_info, only: [:create, :update, :make_multiple]
-  before_filter :authenticate_user!
-  before_filter :authenticate_member!, :except => [:index, :show]
 
   #GET
   def index
@@ -46,7 +43,6 @@ class PhotosController < ApplicationController
 
   def new
     @photo = Photo.new
-    @info = current_user.info.to_hash
   end
 
   def edit
@@ -57,7 +53,6 @@ class PhotosController < ApplicationController
   end
 
   def create
-    save_user_info
     if params[:photo] and params[:photo][:image]
       @photo = make_photo
       if @photo.save
@@ -108,12 +103,10 @@ class PhotosController < ApplicationController
   
   # GET
   def multiple_uploads
-    @info = current_user.info.to_hash
   end
   
   #POST
   def make_multiple
-    save_user_info
     redirect_to photos_multiple_uploads_path, alert: "No files chosen!" and return unless params[:photos] and params[:photos][:images]
     params[:photo] = params[:photos]
     params[:photos][:images].each do |photo|    
@@ -199,23 +192,6 @@ class PhotosController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_photo
     @photo = Photo.find(params[:id])
-  end
-
-  def suih(h,c)
-     lambda do |symbol|
-        !h[symbol] || h[symbol].blank? ? c[symbol] : h[symbol]
-    end
-  end
-
-  def save_user_info
-    hash = params[:photo]
-    return unless hash
-    xx = suih(hash, current_user.info)
-    current_user.info = {:incident_name => xx.call(:incident_name),
-              :taken_by => xx.call(:taken_by),
-              :operational_period => xx.call(:operational_period),
-              :team_number => xx.call(:team_number)}
-    current_user.save
   end
 
   def changed(symbol)

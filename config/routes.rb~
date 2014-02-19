@@ -1,6 +1,4 @@
 PhotoApp::Application.routes.draw do
-  devise_for :users
-  resources :users, :only => [:index, :edit, :destroy, :update]
   get 'photos/multiple_uploads' => 'photos#multiple_uploads'
   post 'photos/multiple_uploads' => 'photos#make_multiple'
   get 'photos/edit_queue' => 'photos#edit_queue', as: 'edit_queue'
@@ -10,11 +8,9 @@ PhotoApp::Application.routes.draw do
   get '/auth/facebook/callback/' => 'photos#facebook_upload'
 	post 'photos/flickr/:id' => 'photos#flickr_upload', as: 'flickr_upload'
   post '/facebook/:id' => 'photos#facebook_auth'
-  resources :photos
-  # resources :csv
-  post 'csv/import'
-  get 'csv/export'
-  get 'csv/index'
+  resources :instructions do
+  	resources :photos
+  end
 
   get 'photos/code_image/:id' => 'photos#code_image'
 
