@@ -1,20 +1,7 @@
-== BAMRU Photo Evidence Gallery
-
-{<img src="https://codeclimate.com/github/cs169-2013/photo_evidence_gallery.png" />}[https://codeclimate.com/github/cs169-2013/photo_evidence_gallery]
+== Origami Instruction Sharing
 
 README
 
 bundle install 
 rake db:migrate 
 rake db:seed
-
-default user accounts
-username: admin@test.com password: admin169 
-username: member@test.com password: member169 
-username: viewer@test.com password: viewer169
-
-admins can add users via csv
-members can upload and edit photos
-viewers can view photos
-
-if working with facebook on on development, note that you need to be made an admin of the app in order for this functionality to work.
