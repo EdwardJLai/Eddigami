@@ -11,7 +11,7 @@ class CreatePhotos < ActiveRecord::Migration
     	t.boolean :edited
     	t.decimal :lat
     	t.decimal :lng
-    	t.int :rotation
+    	t.integer :rotation
     	t.references :instructions
     	
       t.timestamps

@@ -1,0 +1,25 @@
+<div class="page-header">
+  <h2>All Instructions</h2>
+</div>
+
+<table class="table table-striped" id="instruction_table">
+  <tbody>
+    <% @instruction_pack.each do |photo_pack| %>
+      <tr> 
+      <% photo_pack.each do |inst| %>
+        <td align="center" valign="center" style="text-align: center;">
+        	<% if inst.has_image %>
+						<%= link_to image_tag(inst.image_url(:thumb)), inst, :id => "pic" %></br>
+					<% else %>
+						<%= image_tag("/NoImage.png")%></br>
+					<% end %>
+		      <%= link_to 'Delete', inst, method: :delete, data: { confirm: 'Are you super sure?' } %>
+        </td>
+      <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  <% if @instruction_pack == [[]] %>
+    No instructions to show.
+  <% end %>
+</table>

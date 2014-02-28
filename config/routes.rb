@@ -8,6 +8,7 @@ PhotoApp::Application.routes.draw do
   get '/auth/facebook/callback/' => 'photos#facebook_upload'
 	post 'photos/flickr/:id' => 'photos#flickr_upload', as: 'flickr_upload'
   post '/facebook/:id' => 'photos#facebook_auth'
+  post 'instructions/new' => 'instructions#create'
   resources :instructions
   resources :photos
   

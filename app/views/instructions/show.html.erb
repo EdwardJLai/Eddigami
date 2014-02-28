@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h3><%=t '.title'%></h3>
+</div>
+<div class="span-3" style="margin: 20px; padding-right: 40px;">
+<% if @inst.has_image %>
+	<%= image_tag @inst.image_url() %>
+<% else %>
+	<%= image_tag("/NoImage.png") %>
+<% end %>
+<dl class="dl-horizontal">
+  <dt><strong><%= "Title" %>:</strong></dt>
+  <dd><%= @inst.name %>&nbsp;</dd>
+
+
+</dl></div>
+
+<div class="form-actions">
+  <%= link_to t('.home', :default => t("helpers.links.home")),
+              photos_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_photo_path(@photo), :class => 'btn btn-primary' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              instruction_path(@photo),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
+

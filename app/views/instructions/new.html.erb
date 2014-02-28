@@ -2,4 +2,36 @@
   <h3>New Instruction</h3>
 </div>
 
-<%= render :partial => 'instruction_form' %>
+<%= form_for :instruction, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :description, :class => 'text_field'%>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :who, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :who, :class => 'text_field'%>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :date, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group" style="margin-bottom: 15px;">
+    <%= f.label :cover, :class => 'control-label' %>
+    <div class="controls" style="line-height:30px;">
+      <%= f.file_field :cover, :class => 'file_field', :style => 'height: 20px; line-height: 20px; margin-left: 7px' %>
+    </div>
+  </div>
+  <%= f.submit nil, :class => 'btn btn-primary'%>
+ <% end %>
